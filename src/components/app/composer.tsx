@@ -32,30 +32,7 @@ export function Composer({ onSend }: { onSend: (text: string) => void }) {
           placeholder="Спросите о проектах, предприятиях или отклонениях"
           className="max-h-32 min-h-[3.25rem] w-full resize-none bg-transparent px-1 py-2.5 text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
         />
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex min-w-0 items-center gap-2">
-            <button
-              type="button"
-              aria-label="Добавить"
-              className="flex h-9 shrink-0 items-center gap-1 rounded-full border border-border px-3 text-sm text-muted-foreground transition-colors hover:bg-surface-muted"
-            >
-              <Plus className="size-4" />1
-            </button>
-            <button
-              type="button"
-              aria-label="Из проектов"
-              className="grid size-9 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-surface-muted"
-            >
-              <FolderOpen className="size-4" />
-            </button>
-            <button
-              type="button"
-              aria-label="Прикрепить файл"
-              className="grid size-9 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-surface-muted"
-            >
-              <Paperclip className="size-4" />
-            </button>
-          </div>
+        <div className="flex items-center justify-end gap-2">
           <button
             type="submit"
             aria-label="Отправить"
