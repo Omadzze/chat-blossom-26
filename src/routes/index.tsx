@@ -53,23 +53,24 @@ function WelcomePage() {
             считает по словарю метрик и называет источник каждой цифры.
           </p>
 
-          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
             {SUGGESTIONS.map(({ title, icon: Icon }) => (
               <button
                 key={title}
                 type="button"
                 onClick={() => start(title)}
-                className="flex min-h-[7.5rem] flex-col justify-between rounded-3xl bg-surface-muted p-4 text-left transition-colors hover:bg-surface-strong"
+                className="flex min-h-[5.5rem] flex-col justify-between rounded-2xl bg-surface-muted p-3 text-left transition-colors hover:bg-surface-strong"
               >
-                <span className="text-[15px] leading-snug text-foreground">
+                <span className="text-[13px] leading-snug text-foreground">
                   {title}
                 </span>
-                <span className="mt-4 grid size-9 shrink-0 place-items-center self-end rounded-full bg-background text-muted-foreground">
-                  <Icon className="size-4" />
+                <span className="mt-2 grid size-7 shrink-0 place-items-center self-end rounded-full bg-background text-muted-foreground">
+                  <Icon className="size-3.5" />
                 </span>
               </button>
             ))}
           </div>
+
         </div>
 
         <Composer onSend={start} />
