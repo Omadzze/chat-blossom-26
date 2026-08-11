@@ -60,7 +60,9 @@ export function useChat() {
   useEffect(() => {
     const l = () => force((n) => n + 1);
     listeners.add(l);
-    return () => listeners.delete(l);
+    return () => {
+      listeners.delete(l);
+    };
   }, []);
   return messages;
 }
@@ -82,7 +84,7 @@ export function sendMessage(text: string) {
   ];
   emit();
 
-  const reply = CANNED[(turn - 1) % CANNED.length];
+  const reply = CANNED[(turn - 1) % CANNED.length]!;
   setTimeout(() => {
     messages = messages.map((m) =>
       m.id === pendingId
