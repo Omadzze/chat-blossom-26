@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { X, Settings } from "lucide-react";
+import { X } from "lucide-react";
 import { AppShell } from "@/components/app/app-shell";
 import { HISTORY_ITEMS, resetChat } from "@/lib/chat-store";
 
@@ -58,25 +58,6 @@ function HistoryPage() {
               </li>
             ))}
           </ul>
-        </div>
-
-        <div className="sticky bottom-0 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-t border-border bg-background px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-          <div className="grid size-11 shrink-0 place-items-center rounded-full bg-gradient-avatar text-lg font-medium text-primary-foreground">
-            М
-          </div>
-          <div className="min-w-0">
-            <p className="truncate text-[15px] font-medium text-foreground">
-              Мелиев Омабдек
-            </p>
-            <p className="text-sm text-muted-foreground">Pro</p>
-          </div>
-          <button
-            type="button"
-            aria-label="Настройки"
-            className="grid size-10 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-surface-muted"
-          >
-            <Settings className="size-5" />
-          </button>
         </div>
       </div>
     </AppShell>
