@@ -1,24 +1,79 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { BarChart3, TriangleAlert, Search, FileText } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { AppShell } from "@/components/app/app-shell";
+import { Composer } from "@/components/app/composer";
+import { resetChat, sendMessage } from "@/lib/chat-store";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Аналитик — помощник по портфелю проектов" },
+      {
+        name: "description",
+        content:
+          "Спросите о портфеле, проекте или отклонении: агент читает PMI и PMT, считает по словарю метрик и называет источник каждой цифры.",
+      },
+      { property: "og:title", content: "Аналитик — помощник по портфелю проектов" },
+      {
+        property: "og:description",
+        content:
+          "Ответы по проектам, предприятиям и региональным срезам со ссылкой на источник данных.",
+      },
+    ],
+  }),
+  component: WelcomePage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+const SUGGESTIONS: { title: string; icon: LucideIcon }[] = [
+  { title: "Сводка по портфелю с графиками", icon: BarChart3 },
+  { title: "Разобрать проблемные проекты", icon: TriangleAlert },
+  { title: "Найти повторяющиеся проблемы региона", icon: Search },
+  { title: "Почему проект 501 отстаёт", icon: FileText },
+];
+
+function WelcomePage() {
+  const navigate = useNavigate();
+
+  function start(text: string) {
+    resetChat();
+    sendMessage(text);
+    navigate({ to: "/chat" });
+  }
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <AppShell>
+      <main className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col justify-center px-4 py-8">
+          <h2 className="bg-gradient-greeting bg-clip-text text-4xl font-normal tracking-tight text-transparent sm:text-5xl">
+            Здравствуйте
+          </h2>
+          <p className="mt-4 max-w-prose text-[17px] leading-[1.6] text-foreground">
+            Спросите о портфеле, проекте или отклонении. Агент читает PMI и PMT,
+            считает по словарю метрик и называет источник каждой цифры.
+          </p>
+
+          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+            {SUGGESTIONS.map(({ title, icon: Icon }) => (
+              <button
+                key={title}
+                type="button"
+                onClick={() => start(title)}
+                className="flex min-h-[9rem] flex-col justify-between rounded-3xl bg-surface-muted p-4 text-left transition-colors hover:bg-surface-strong"
+              >
+                <span className="text-[15px] leading-snug text-foreground">
+                  {title}
+                </span>
+                <span className="mt-4 grid size-9 shrink-0 place-items-center self-end rounded-full bg-background text-muted-foreground">
+                  <Icon className="size-4" />
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <Composer onSend={start} />
+      </main>
+    </AppShell>
   );
 }
