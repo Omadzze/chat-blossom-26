@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, FolderOpen, Paperclip, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 export function Composer({ onSend }: { onSend: (text: string) => void }) {
   const [value, setValue] = useState("");
