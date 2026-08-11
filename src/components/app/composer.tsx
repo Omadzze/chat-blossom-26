@@ -30,7 +30,7 @@ export function Composer({ onSend }: { onSend: (text: string) => void }) {
           }}
           rows={1}
           placeholder="Спросите о проектах, предприятиях или отклонениях"
-          className="max-h-32 min-h-11 w-full resize-none bg-transparent px-1 py-2.5 text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
+          className="max-h-32 min-h-[3.25rem] w-full resize-none bg-transparent px-1 py-2.5 text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
         />
         <div className="flex items-center justify-between gap-2">
           <div className="flex min-w-0 items-center gap-2">

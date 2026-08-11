@@ -27,6 +27,7 @@ function HistoryPage() {
 
   return (
     <AppShell
+      hideHistory
       action={
         <button
           type="button"

@@ -44,7 +44,7 @@ function WelcomePage() {
   return (
     <AppShell>
       <main className="flex flex-1 flex-col">
-        <div className="flex flex-1 flex-col justify-center px-4 py-8">
+        <div className="flex flex-1 flex-col justify-center overflow-y-auto px-4 py-8">
           <h2 className="bg-gradient-greeting bg-clip-text text-4xl font-normal tracking-tight text-transparent sm:text-5xl">
             Здравствуйте
           </h2>
@@ -59,7 +59,7 @@ function WelcomePage() {
                 key={title}
                 type="button"
                 onClick={() => start(title)}
-                className="flex min-h-[9rem] flex-col justify-between rounded-3xl bg-surface-muted p-4 text-left transition-colors hover:bg-surface-strong"
+                className="flex min-h-[7.5rem] flex-col justify-between rounded-3xl bg-surface-muted p-4 text-left transition-colors hover:bg-surface-strong"
               >
                 <span className="text-[15px] leading-snug text-foreground">
                   {title}
