@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { X, Settings } from "lucide-react";
+import { X } from "lucide-react";
 import { AppShell } from "@/components/app/app-shell";
 import { HISTORY_ITEMS, resetChat } from "@/lib/chat-store";
 
