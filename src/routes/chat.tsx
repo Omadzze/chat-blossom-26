@@ -27,7 +27,7 @@ function ChatPage() {
   const messages = useChat();
 
   return (
-    <AppShell>
+    <AppShell showNav>
       <main className="flex flex-1 flex-col">
         {messages.length === 0 ? (
           <div className="flex-1 px-4 py-8">
