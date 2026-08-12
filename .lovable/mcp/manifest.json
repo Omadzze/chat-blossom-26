@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "chat-companion",
+      "version": "0.1.0",
+      "title": "Chat Companion"
+    },
+    "tools": [
+      {
+        "name": "get_dashboard_kpis",
+        "title": "Get dashboard KPIs",
+        "description": "Return the demo KPI cards from the Главный screen: enterprises, investment projects, industrial zones, exporters and foreign investment.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_export_regions",
+        "title": "List export directions",
+        "description": "Return the demo export directions (world plus countries) with export volume and year-over-year change.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_region_digest",
+        "title": "Get AI digest for a region",
+        "description": "Return the demo ИИ-Дайджест for one export direction: headline, prioritised problems with suggested solutions, AI recommendations and data gaps.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "region_id": {
+              "type": "string",
+              "description": "Region id from list_export_regions, e.g. world, ru, cn, kz, tr, ae, kr."
+            }
+          },
+          "required": [
+            "region_id"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
