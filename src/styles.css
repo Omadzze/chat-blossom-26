@@ -68,6 +68,7 @@
   --color-status-yellow: var(--status-yellow);
   --color-status-green: var(--status-green);
   --color-status-grey: var(--status-grey);
+  --color-status-blue: var(--status-blue);
   --color-advice: var(--advice);
   --color-advice-foreground: var(--advice-foreground);
 
