@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
-  component: MainScreen;
+  component: MainScreen,
 });
 
 function MainScreen() {
