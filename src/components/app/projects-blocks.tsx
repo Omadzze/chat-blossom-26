@@ -180,7 +180,7 @@ function ReasonRow({ item, rank }: { item: Reason; rank: number }) {
           <span className={`size-2 shrink-0 rounded-full ${TONE[tone]}`} />
           <span className="min-w-0 truncate text-[15px] text-foreground">{item.name}</span>
           <span className="shrink-0 font-mono text-[14px] text-foreground">
-            {item.percent}%
+            {String(item.percent).replace(".", ",")}%
           </span>
         </span>
         <span className="mt-1 block pl-[18px] text-[12px] text-muted-foreground">
