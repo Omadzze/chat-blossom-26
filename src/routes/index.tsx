@@ -1,79 +1,89 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { BarChart3, TriangleAlert, Search, FileText } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { useState } from "react";
 import { AppShell } from "@/components/app/app-shell";
-import { Composer } from "@/components/app/composer";
+import { KpiCard } from "@/components/app/kpi-card";
+import { RegionStrip } from "@/components/app/region-strip";
+import { DataGaps, DigestCard } from "@/components/app/digest-card";
+import { KPIS, REGIONS, ZONES, getDigest } from "@/lib/dashboard-data";
 import { resetChat, sendMessage } from "@/lib/chat-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Аналитик — помощник по портфелю проектов" },
+      { title: "Главный экран — Аналитик" },
       {
         name: "description",
         content:
-          "Спросите о портфеле, проекте или отклонении: агент читает PMI и PMT, считает по словарю метрик и называет источник каждой цифры.",
+          "Мобильная сводка портфеля: предприятия, инвестпроекты, промзоны, экспортёры и ИИ-дайджест по выбранной географии.",
       },
-      { property: "og:title", content: "Аналитик — помощник по портфелю проектов" },
+      { property: "og:title", content: "Главный экран — Аналитик" },
       {
         property: "og:description",
-        content:
-          "Ответы по проектам, предприятиям и региональным срезам со ссылкой на источник данных.",
+        content: "Ключевые показатели портфеля и ИИ-дайджест с приоритетами и решениями.",
       },
     ],
   }),
-  component: WelcomePage,
+  component: MainScreen;
 });
 
-const SUGGESTIONS: { title: string; icon: LucideIcon }[] = [
-  { title: "Сводка по портфелю с графиками", icon: BarChart3 },
-  { title: "Разобрать проблемные проекты", icon: TriangleAlert },
-  { title: "Найти повторяющиеся проблемы региона", icon: Search },
-  { title: "Почему проект 501 отстаёт", icon: FileText },
-];
-
-function WelcomePage() {
+function MainScreen() {
   const navigate = useNavigate();
+  const [zone, setZone] = useState<string>("all");
+  const [region, setRegion] = useState<string>("world");
+  const digest = getDigest(region);
+  const regionName = REGIONS.find((r) => r.id === region)?.name ?? "Мир";
 
-  function start(text: string) {
+  function ask() {
     resetChat();
-    sendMessage(text);
+    sendMessage(`Разбери ИИ-дайджест по срезу: ${regionName}. Что делать в первую очередь?`);
     navigate({ to: "/chat" });
   }
 
   return (
-    <AppShell>
-      <main className="flex flex-1 flex-col">
-        <div className="flex flex-1 flex-col justify-center overflow-y-auto px-4 py-8">
-          <h2 className="bg-gradient-greeting bg-clip-text text-4xl font-normal tracking-tight text-transparent sm:text-5xl">
-            Здравствуйте
-          </h2>
-          <p className="mt-4 max-w-prose text-[17px] leading-[1.6] text-foreground">
-            Спросите о портфеле, проекте или отклонении. Агент читает PMI и PMT,
-            считает по словарю метрик и называет источник каждой цифры.
-          </p>
-
-          <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {SUGGESTIONS.map(({ title, icon: Icon }) => (
+    <AppShell
+      showNav
+      hideHistory
+      title="Главный экран"
+      subtitle="Мининвест · данные от 08.08, 12:21"
+    >
+      <main className="flex-1 space-y-5 overflow-y-auto px-4 pb-6">
+        <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex gap-1.5">
+            {ZONES.map((z) => (
               <button
-                key={title}
+                key={z.id}
                 type="button"
-                onClick={() => start(title)}
-                className="flex min-h-[5.5rem] flex-col justify-between rounded-2xl bg-surface-muted p-3 text-left transition-colors hover:bg-surface-strong"
+                onClick={() => setZone(z.id)}
+                className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors ${
+                  zone === z.id
+                    ? "bg-brand text-brand-foreground"
+                    : "bg-surface-muted text-muted-foreground"
+                }`}
               >
-                <span className="text-[13px] leading-snug text-foreground">
-                  {title}
-                </span>
-                <span className="mt-2 grid size-7 shrink-0 place-items-center self-end rounded-full bg-background text-muted-foreground">
-                  <Icon className="size-3.5" />
-                </span>
+                {z.label}
               </button>
             ))}
           </div>
-
         </div>
 
-        <Composer onSend={start} />
+        <section>
+          <h2 className="sr-only">Ключевые показатели</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {KPIS.map((kpi) => (
+              <KpiCard key={kpi.id} kpi={kpi} />
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="mb-2.5 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
+            География экспорта
+          </h2>
+          <RegionStrip selected={region} onSelect={setRegion} />
+        </section>
+
+        <DigestCard digest={digest} onAsk={ask} />
+        <DataGaps items={digest.gaps} />
       </main>
     </AppShell>
   );
