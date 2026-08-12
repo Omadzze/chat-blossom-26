@@ -171,7 +171,13 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
   --surface-muted: oklch(0.26 0.03 260);
   --surface-strong: oklch(0.32 0.035 260);
+  --brand: oklch(0.72 0.15 274);
+  --brand-foreground: oklch(0.17 0.04 274);
+  --brand-soft: oklch(0.3 0.06 274);
+  --advice: oklch(0.3 0.05 155);
+  --advice-foreground: oklch(0.85 0.11 155);
 }
+
 
 @layer base {
   * {
