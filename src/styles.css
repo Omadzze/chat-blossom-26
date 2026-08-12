@@ -70,6 +70,16 @@
   --color-status-grey: var(--status-grey);
   --color-advice: var(--advice);
   --color-advice-foreground: var(--advice-foreground);
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-soft: var(--brand-soft);
+  --color-status-red: var(--status-red);
+  --color-status-yellow: var(--status-yellow);
+  --color-status-green: var(--status-green);
+  --color-status-grey: var(--status-grey);
+  --color-advice: var(--advice);
+  --color-advice-foreground: var(--advice-foreground);
   --font-sans: "Google Sans Text", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }

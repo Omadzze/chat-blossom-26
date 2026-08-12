@@ -32,7 +32,7 @@ function HistoryPage() {
         <button
           type="button"
           aria-label="Закрыть"
-          onClick={() => navigate({ to: "/" })}
+          onClick={() => navigate({ to: "/ai" })}
           className="grid size-10 shrink-0 place-items-center rounded-full bg-surface-muted text-foreground transition-colors hover:bg-surface-strong"
         >
           <X className="size-5" />
