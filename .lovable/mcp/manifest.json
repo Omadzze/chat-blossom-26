@@ -26,7 +26,19 @@
           "type": "object",
           "properties": {}
         },
-        "outputSchema": null
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "kpis": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "kpis"
+          ]
+        }
       },
       {
         "name": "list_export_regions",
@@ -42,7 +54,19 @@
           "type": "object",
           "properties": {}
         },
-        "outputSchema": null
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "regions": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "regions"
+          ]
+        }
       },
       {
         "name": "get_region_digest",
@@ -66,7 +90,18 @@
             "region_id"
           ]
         },
-        "outputSchema": null
+        "outputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "region": {},
+            "digest": {}
+          },
+          "required": [
+            "region",
+            "digest"
+          ]
+        }
       }
     ]
   }

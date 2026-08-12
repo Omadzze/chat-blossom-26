@@ -1,4 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
+import { z } from "zod";
 import { REGIONS } from "@/lib/dashboard-data";
 
 export default defineTool({
@@ -7,6 +8,7 @@ export default defineTool({
   description:
     "Return the demo export directions (world plus countries) with export volume and year-over-year change.",
   inputSchema: {},
+  outputSchema: { regions: z.array(z.unknown()) },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
     content: [{ type: "text", text: JSON.stringify(REGIONS, null, 2) }],

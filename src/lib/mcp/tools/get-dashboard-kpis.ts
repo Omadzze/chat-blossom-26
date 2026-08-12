@@ -1,4 +1,5 @@
 import { defineTool } from "@lovable.dev/mcp-js";
+import { z } from "zod";
 import { KPIS } from "@/lib/dashboard-data";
 
 export default defineTool({
@@ -7,6 +8,7 @@ export default defineTool({
   description:
     "Return the demo KPI cards from the Главный screen: enterprises, investment projects, industrial zones, exporters and foreign investment.",
   inputSchema: {},
+  outputSchema: { kpis: z.array(z.unknown()) },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: () => ({
     content: [{ type: "text", text: JSON.stringify(KPIS, null, 2) }],

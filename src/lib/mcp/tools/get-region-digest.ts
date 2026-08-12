@@ -14,6 +14,7 @@ export default defineTool({
         "Region id from list_export_regions, e.g. world, ru, cn, kz, tr, ae, kr.",
       ),
   },
+  outputSchema: { region: z.unknown(), digest: z.unknown() },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ region_id }) => {
     const region = REGIONS.find((r) => r.id === region_id);
