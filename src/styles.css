@@ -112,6 +112,16 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
   --surface-muted: oklch(0.962 0.006 247.9);
   --surface-strong: oklch(0.932 0.009 247.9);
+  --brand: oklch(0.52 0.2 274);
+  --brand-foreground: oklch(0.99 0.005 274);
+  --brand-soft: oklch(0.95 0.03 274);
+  --status-red: oklch(0.6 0.21 25);
+  --status-yellow: oklch(0.78 0.15 85);
+  --status-green: oklch(0.62 0.15 155);
+  --status-grey: oklch(0.68 0.02 260);
+  --advice: oklch(0.96 0.04 155);
+  --advice-foreground: oklch(0.42 0.11 155);
+
   --gradient-greeting: linear-gradient(
     100deg,
     oklch(0.62 0.17 255) 0%,
