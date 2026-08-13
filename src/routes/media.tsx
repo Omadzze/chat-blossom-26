@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { markMock } from "@/lib/mock-marker";
 import { AppShell } from "@/components/app/app-shell";
 
 export const Route = createFileRoute("/media")({
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/media")({
   component: MediaPage,
 });
 
-const NEWS = [
+const NEWS = markMock([
   {
     title: "Цены на нефть выросли на фоне неопределённости по сделке США и Ирана",
     source: "Reuters Business",
@@ -47,7 +48,7 @@ const NEWS = [
     source: "IHS Markit",
     time: "3 д назад",
   },
-];
+]);
 
 function MediaPage() {
   return (
