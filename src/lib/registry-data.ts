@@ -1,4 +1,4 @@
-import { markMock } from "./mock-marker";
+import { markMock, markValue } from "./mock-marker";
 
 export type RegistryItem = {
   id: string;
@@ -171,5 +171,6 @@ const REGISTRY_RAW: RegistryItem[] = [
 
 export const REGISTRY: RegistryItem[] = markMock(REGISTRY_RAW);
 
-export const REGISTRY_NOTE =
-  "Реестр предприятий по срезу июнь 2026 года · показаны 10 из 1 277 карточек";
+export const REGISTRY_NOTE = markValue(
+  "Реестр предприятий по срезу июнь 2026 года · показаны 10 из 1 277 карточек",
+);
