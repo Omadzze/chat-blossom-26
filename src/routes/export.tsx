@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import { NUMBER_MARK } from "@/lib/mock-marker";
 import { AppShell } from "@/components/app/app-shell";
 import { REGIONS } from "@/lib/dashboard-data";
 
@@ -24,17 +25,17 @@ export const Route = createFileRoute("/export")({
 
 function ExportPage() {
   return (
-    <AppShell showNav hideHistory title="Экспорт" subtitle="5 794 экспортёра">
+    <AppShell showNav hideHistory title="Экспорт" subtitle={`5 794${NUMBER_MARK} экспортёра`}>
       <main className="flex-1 space-y-5 overflow-y-auto px-4 pb-6">
         <div className="rounded-3xl bg-brand-soft p-4">
           <p className="text-[11px] uppercase tracking-wide text-brand">
             Экспорт всего
           </p>
           <p className="mt-2 font-mono text-[34px] leading-none text-foreground">
-            $8,39 млрд
+            $8,39 млрд{NUMBER_MARK}
           </p>
           <p className="mt-2 flex items-center gap-1 text-[13px] text-status-red">
-            <TrendingDown className="size-4" /> −4,1% к прошлому году
+            <TrendingDown className="size-4" /> −4,1%{NUMBER_MARK} к прошлому году
           </p>
         </div>
 
@@ -44,7 +45,7 @@ function ExportPage() {
               Держат темп
             </p>
             <p className="mt-2 font-mono text-[26px] leading-none text-foreground">
-              1 758
+              1 758{NUMBER_MARK}
             </p>
           </div>
           <div className="rounded-3xl bg-surface-muted p-3.5">
@@ -52,7 +53,7 @@ function ExportPage() {
               Красная зона
             </p>
             <p className="mt-2 font-mono text-[26px] leading-none text-status-red">
-              1 204
+              1 204{NUMBER_MARK}
             </p>
           </div>
         </div>
@@ -86,6 +87,7 @@ function ExportPage() {
                       )}
                       {up ? "+" : ""}
                       {r.delta.toFixed(1)}%
+                      {NUMBER_MARK}
                     </span>
                   </span>
                 </li>

@@ -1,3 +1,5 @@
+import { markMock, markValue } from "./mock-marker";
+
 export type ProjectZone = {
   id: string;
   label: string;
@@ -5,7 +7,7 @@ export type ProjectZone = {
   tone: "grey" | "red" | "yellow" | "blue" | "green";
 };
 
-export const PROJECT_ZONES: ProjectZone[] = [
+const PROJECT_ZONES_RAW: ProjectZone[] = [
   { id: "all", label: "Все", count: "1 277", tone: "grey" },
   { id: "red", label: "Красные", count: "169", tone: "red" },
   { id: "yellow", label: "Жёлтые", count: "123", tone: "yellow" },
@@ -34,7 +36,7 @@ export const INDUSTRY_OPTIONS = [
   "Фармацевтика",
 ];
 
-export const SLICE = {
+const SLICE_RAW = {
   title: "Неиспользуемые производственные мощности: 169 предприятий",
   subtitle: "Аналитический срез: июнь 2026 года · по выбранным фильтрам",
   collected: "Собрано 12 августа в 06:31",
@@ -62,7 +64,7 @@ export type Reason = {
   owner: string;
 };
 
-export const REASONS: Reason[] = [
+const REASONS_RAW: Reason[] = [
   { name: "Сбыт", count: "51 из 169", percent: 30, invested: "$380,1 млн", owner: "Минторг и торгпредства" },
   { name: "Причина не заявлена", count: "36 из 169", percent: 21, invested: "$371,6 млн", owner: "Хокимият области, отраслевое управление МИИТ" },
   { name: "Инвестор", count: "20 из 169", percent: 12, invested: "$578,8 млн", owner: "Агентство по привлечению инвестиций" },
@@ -85,7 +87,7 @@ export type Measure = {
   amount: string;
 };
 
-export const MEASURES: Measure[] = [
+const MEASURES_RAW: Measure[] = [
   {
     title: "Собрать заказы: якорные покупатели, госзакупки, экспортные каналы",
     text: "Сформировать реестр нереализованной продукции 51 предприятия и провести матчинг с якорными покупателями через торгпредства; прийти с портфелем заказов на ближайший квартал.",
@@ -130,7 +132,7 @@ export const MEASURES: Measure[] = [
   },
 ];
 
-export const BACKGROUND = {
+const BACKGROUND_RAW = {
   note: "Годовой рост по данным Всемирного банка · 2025 год",
   items: [
     { value: "+7,7%", label: "Обрабатывающая промышленность", prev: "2024: +6,9%" },
@@ -146,7 +148,7 @@ export type MarketNote = {
   sources: string[];
 };
 
-export const MARKET: MarketNote[] = [
+const MARKET_RAW: MarketNote[] = [
   {
     industry: "Текстиль",
     headline:
@@ -167,7 +169,7 @@ export const MARKET: MarketNote[] = [
 
 export type Investment = { name: string; region: string; value: string; percent: number };
 
-export const INVESTMENTS: Investment[] = [
+const INVESTMENTS_RAW: Investment[] = [
   { name: "DIABAZ MINERAL WOOL", region: "Jizzax viloyati", value: "$164,8 млн", percent: 100 },
   { name: "BASALT THERMO", region: "Jizzax viloyati", value: "$127,7 млн", percent: 77 },
   { name: "RASH-MILK PLUS", region: "Andijon viloyati", value: "$110 млн", percent: 67 },
@@ -182,4 +184,19 @@ export const INVESTMENTS: Investment[] = [
   { name: "FERGANA CERAMICS", region: "Farg'ona viloyati", value: "$34,7 млн", percent: 21 },
 ];
 
-export const INVESTMENTS_NOTE = "12 предприятий с наибольшими вложениями, $894,2 млн из $1 984,4 млн по срезу";
+const INVESTMENTS_NOTE_RAW = "12 предприятий с наибольшими вложениями, $894,2 млн из $1 984,4 млн по срезу";
+
+export const PROJECT_ZONES: ProjectZone[] = PROJECT_ZONES_RAW.map((z) => ({
+  ...z,
+  count: markValue(z.count),
+}));
+export const SLICE = markMock(SLICE_RAW);
+export const REASONS: Reason[] = markMock(REASONS_RAW);
+export const MEASURES: Measure[] = markMock(MEASURES_RAW);
+export const BACKGROUND = markMock(BACKGROUND_RAW);
+export const MARKET: MarketNote[] = markMock(MARKET_RAW);
+export const INVESTMENTS: Investment[] = markMock(INVESTMENTS_RAW).map((it) => ({
+  ...it,
+  name: markValue(it.name),
+}));
+export const INVESTMENTS_NOTE = markValue(INVESTMENTS_NOTE_RAW);
