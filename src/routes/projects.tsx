@@ -8,7 +8,7 @@ import {
   MetricTile,
   Bar,
   CollapsibleText,
-  ReasonList,
+  ReasonDonut,
   MeasureList,
   MarketList,
   InvestmentList,
@@ -69,7 +69,7 @@ function ProjectsPage() {
       <main className="flex-1 space-y-5 overflow-y-auto px-4 pb-6">
         <ZoneChips zones={PROJECT_ZONES} selected={zone} onSelect={setZone} />
 
-        <div className="space-y-2">
+        <div className="grid grid-cols-2 gap-2">
           <SelectRow
             label="Область"
             value={region}
@@ -93,7 +93,7 @@ function ProjectsPage() {
 
         <section className="rounded-3xl bg-surface-muted p-4">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
-            Простой мощностей
+            Предприятия с остановленным производством
           </p>
           <p className="mt-2 flex items-end gap-2">
             <span className="font-mono text-[38px] leading-none text-status-red">
@@ -139,9 +139,9 @@ function ProjectsPage() {
 
         <section>
           <h2 className="mb-2.5 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Причины простоя
+            Структура причин простоя
           </h2>
-          <ReasonList items={REASONS} />
+          <ReasonDonut items={REASONS} />
         </section>
 
         <section>
@@ -153,7 +153,7 @@ function ProjectsPage() {
 
         <section>
           <h2 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Внешний фон
+            Внешние экономические условия
           </h2>
           <p className="mb-2.5 text-[12px] text-muted-foreground">{BACKGROUND.note}</p>
           <div className="grid grid-cols-3 gap-2">
@@ -180,7 +180,7 @@ function ProjectsPage() {
 
         <section>
           <h2 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Где стоят вложения
+            Распределение вложений по предприятиям
           </h2>
           <p className="mb-2.5 text-[12px] text-muted-foreground">{INVESTMENTS_NOTE}</p>
           <InvestmentList items={INVESTMENTS} />
