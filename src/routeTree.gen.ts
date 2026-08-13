@@ -19,6 +19,7 @@ import { Route as MediaRouteImport } from './routes/media'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as ProjectsRegistryRouteImport } from './routes/projects.registry'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
 const IndexRoute = IndexRouteImport.update({
@@ -73,6 +74,11 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ProjectsRegistryRoute = ProjectsRegistryRouteImport.update({
+  id: '/registry',
+  path: '/registry',
+  getParentRoute: () => ProjectsRoute,
+} as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -88,9 +94,10 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/mcp': typeof McpRoute
   '/media': typeof MediaRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/projects/registry': typeof ProjectsRegistryRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -101,9 +108,10 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/mcp': typeof McpRoute
   '/media': typeof MediaRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/projects/registry': typeof ProjectsRegistryRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -115,9 +123,10 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/mcp': typeof McpRoute
   '/media': typeof MediaRoute
-  '/projects': typeof ProjectsRoute
+  '/projects': typeof ProjectsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/projects/registry': typeof ProjectsRegistryRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/projects/registry'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/projects/registry'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/projects/registry'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -170,7 +182,7 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   McpRoute: typeof McpRoute
   MediaRoute: typeof MediaRoute
-  ProjectsRoute: typeof ProjectsRoute
+  ProjectsRoute: typeof ProjectsRouteWithChildren
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -248,6 +260,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/registry': {
+      id: '/projects/registry'
+      path: '/registry'
+      fullPath: '/projects/registry'
+      preLoaderRoute: typeof ProjectsRegistryRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -258,6 +277,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ProjectsRouteChildren {
+  ProjectsRegistryRoute: typeof ProjectsRegistryRoute
+}
+
+const ProjectsRouteChildren: ProjectsRouteChildren = {
+  ProjectsRegistryRoute: ProjectsRegistryRoute,
+}
+
+const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
+  ProjectsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiRoute: AiRoute,
@@ -266,7 +297,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   McpRoute: McpRoute,
   MediaRoute: MediaRoute,
-  ProjectsRoute: ProjectsRoute,
+  ProjectsRoute: ProjectsRouteWithChildren,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
