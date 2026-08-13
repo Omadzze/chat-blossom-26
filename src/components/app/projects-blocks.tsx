@@ -166,64 +166,120 @@ export function CollapsibleText({
   );
 }
 
-function ReasonRow({ item, rank }: { item: Reason; rank: number }) {
-  const [open, setOpen] = useState(false);
-  const tone = rank === 0 ? "red" : rank === 1 ? "grey" : rank === 2 ? "green" : "blue";
+const SLICE_COLORS = [
+  "var(--status-red)",
+  "var(--status-grey)",
+  "var(--status-green)",
+  "var(--status-blue)",
+  "var(--status-yellow)",
+  "var(--brand)",
+  "var(--surface-strong)",
+];
+
+function fmt(n: number) {
+  return String(n).replace(".", ",");
+}
+
+export function ReasonDonut({ items }: { items: Reason[] }) {
+  const [active, setActive] = useState(0);
+
+  const top = items.slice(0, 6);
+  const rest = items.slice(6);
+  const restPercent =
+    Math.round(rest.reduce((s, r) => s + r.percent, 0) * 10) / 10;
+  const segments = [
+    ...top.map((r) => ({ name: r.name, percent: r.percent, reason: r as Reason | null })),
+    ...(rest.length
+      ? [{ name: "Прочие причины", percent: restPercent, reason: null }]
+      : []),
+  ];
+
+  const R = 42;
+  const C = 2 * Math.PI * R;
+  let offset = 0;
+  const selected = segments[active];
+
   return (
-    <li className="rounded-2xl bg-surface-muted p-3.5">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="w-full text-left"
-      >
-        <span className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5">
-          <span className={`size-2 shrink-0 rounded-full ${TONE[tone]}`} />
-          <span className="min-w-0 truncate text-[15px] text-foreground">{item.name}</span>
-          <span className="shrink-0 font-mono text-[14px] text-foreground">
-            {String(item.percent).replace(".", ",")}%
-          </span>
-        </span>
-        <span className="mt-1 block pl-[18px] text-[12px] text-muted-foreground">
-          {item.count}
-        </span>
-        <Bar percent={item.percent} tone={tone} />
-      </button>
-      {open && (
-        <div className="mt-2.5 space-y-1 border-l-2 border-border pl-3">
-          <p className="text-[13px] text-muted-foreground">
-            Вложено <span className="font-mono text-foreground">{item.invested}</span>
-          </p>
-          <p className="text-[13px] leading-relaxed text-muted-foreground">
-            С кем решать: {item.owner}
-          </p>
+    <div className="rounded-3xl bg-surface-muted p-4">
+      <div className="relative mx-auto size-[184px]">
+        <svg viewBox="0 0 100 100" className="size-full -rotate-90">
+          {segments.map((s, i) => {
+            const len = (s.percent / 100) * C;
+            const dash = `${Math.max(0, len - 1.5)} ${C - Math.max(0, len - 1.5)}`;
+            const el = (
+              <circle
+                key={s.name}
+                cx="50"
+                cy="50"
+                r={R}
+                fill="none"
+                stroke={SLICE_COLORS[i % SLICE_COLORS.length]}
+                strokeWidth={i === active ? 15 : 11}
+                strokeDasharray={dash}
+                strokeDashoffset={-offset}
+                onClick={() => setActive(i)}
+                className="cursor-pointer transition-[stroke-width]"
+              />
+            );
+            offset += len;
+            return el;
+          })}
+        </svg>
+        <div className="pointer-events-none absolute inset-0 grid place-items-center px-6 text-center">
+          <div>
+            <p className="font-mono text-[26px] leading-none text-foreground">
+              {fmt(selected?.percent ?? 0)}%
+            </p>
+            <p className="mt-1.5 text-[11px] leading-tight text-muted-foreground">
+              {selected?.name}
+            </p>
+          </div>
         </div>
-      )}
-    </li>
+      </div>
+
+      <ul className="mt-4 space-y-1">
+        {segments.map((s, i) => (
+          <li key={s.name}>
+            <button
+              type="button"
+              onClick={() => setActive(i)}
+              className={`grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 rounded-xl px-2 py-2 text-left transition-colors ${
+                i === active ? "bg-background" : ""
+              }`}
+            >
+              <span
+                className="size-2.5 shrink-0 rounded-full"
+                style={{ background: SLICE_COLORS[i % SLICE_COLORS.length] }}
+              />
+              <span className="min-w-0 truncate text-[14px] text-foreground">
+                {s.name}
+              </span>
+              <span className="shrink-0 font-mono text-[13px] text-muted-foreground">
+                {s.reason ? s.reason.count.replace(" из 169", "") : rest.length} ·{" "}
+                {fmt(s.percent)}%
+              </span>
+            </button>
+            {i === active && s.reason && (
+              <div className="mb-1 ml-[22px] space-y-1 border-l-2 border-border pl-3">
+                <p className="text-[13px] text-muted-foreground">
+                  Предприятий: <span className="text-foreground">{s.reason.count}</span>
+                </p>
+                <p className="text-[13px] text-muted-foreground">
+                  Объём вложений:{" "}
+                  <span className="font-mono text-foreground">{s.reason.invested}</span>
+                </p>
+                <p className="text-[13px] leading-relaxed text-muted-foreground">
+                  Ответственные: {s.reason.owner}
+                </p>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
-export function ReasonList({ items }: { items: Reason[] }) {
-  const [all, setAll] = useState(false);
-  const shown = all ? items : items.slice(0, 6);
-  return (
-    <>
-      <ul className="space-y-2">
-        {shown.map((r, i) => (
-          <ReasonRow key={r.name} item={r} rank={i} />
-        ))}
-      </ul>
-      {items.length > 6 && (
-        <button
-          type="button"
-          onClick={() => setAll((a) => !a)}
-          className="mt-2 w-full rounded-full bg-surface-muted py-2.5 text-[13px] font-medium text-brand"
-        >
-          {all ? "Свернуть" : `Показать все ${items.length}`}
-        </button>
-      )}
-    </>
-  );
-}
 
 export function MeasureList({ items }: { items: Measure[] }) {
   return (
