@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { NUMBER_MARK } from "@/lib/mock-marker";
 import type { Reason, Measure, Investment, MarketNote } from "@/lib/projects-data";
 
 const TONE: Record<string, string> = {
@@ -177,7 +178,7 @@ const SLICE_COLORS = [
 ];
 
 function fmt(n: number) {
-  return String(n).replace(".", ",");
+  return `${String(n).replace(".", ",")}${NUMBER_MARK}`;
 }
 
 export function ReasonDonut({ items }: { items: Reason[] }) {
