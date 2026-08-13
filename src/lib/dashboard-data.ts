@@ -1,3 +1,5 @@
+import { markMock } from "./mock-marker";
+
 export type Kpi = {
   id: string;
   label: string;
@@ -7,7 +9,7 @@ export type Kpi = {
   details: { label: string; value: string; percent: number }[];
 };
 
-export const KPIS: Kpi[] = [
+const KPIS_RAW: Kpi[] = [
   {
     id: "pmt",
     label: "Предприятия постмониторинга",
@@ -91,7 +93,7 @@ export type Region = {
   delta: number;
 };
 
-export const REGIONS: Region[] = [
+const REGIONS_RAW: Region[] = [
   { id: "world", name: "Мир", export: "$8,39 млрд", delta: -4.1 },
   { id: "ru", name: "Россия", export: "$2,41 млрд", delta: -12.6 },
   { id: "cn", name: "Китай", export: "$1,88 млрд", delta: 6.2 },
@@ -322,6 +324,9 @@ const BY_REGION: Record<string, RegionDigest> = {
   },
 };
 
+export const KPIS: Kpi[] = markMock(KPIS_RAW);
+export const REGIONS: Region[] = markMock(REGIONS_RAW);
+
 export function getDigest(regionId: string): RegionDigest {
-  return BY_REGION[regionId] ?? WORLD;
+  return markMock(BY_REGION[regionId] ?? WORLD);
 }

@@ -6,7 +6,17 @@
  * а какие придут из реальной системы.
  */
 
-const SKIP_KEYS = new Set(["id", "tone", "icon", "role", "kind", "type"]);
+const SKIP_KEYS = new Set([
+  "id",
+  "tone",
+  "icon",
+  "role",
+  "kind",
+  "type",
+  "label",
+  "unit",
+  "name",
+]);
 
 export const TEXT_MARK = " [G]";
 export const NUMBER_MARK = "⁰";

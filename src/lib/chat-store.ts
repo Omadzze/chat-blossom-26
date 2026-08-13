@@ -1,3 +1,4 @@
+import { markMock } from "./mock-marker";
 import { useEffect, useState } from "react";
 
 export type ChatMessage = {
@@ -9,7 +10,7 @@ export type ChatMessage = {
   pending?: boolean;
 };
 
-const CANNED: { text: string; reasoning: string }[] = [
+const CANNED_RAW: { text: string; reasoning: string }[] = [
   {
     text: "Привет! Я помощник платформы МИИТ. Помогаю с вопросами по внутренним данным министерства: проекты, предприятия, экспортёры, отрасли, региональные срезы. Также могу найти актуальную публичную информацию или проверить нормы законодательства по lex.uz.\n\nЧем могу помочь?",
     reasoning:
@@ -27,7 +28,9 @@ const CANNED: { text: string; reasoning: string }[] = [
   },
 ];
 
-export const HISTORY_ITEMS = [
+const CANNED = markMock(CANNED_RAW);
+
+export const HISTORY_ITEMS = markMock([
   "Сводка по портфелю за август",
   "Проблемные проекты Ферганской области",
   "Проверка норм по lex.uz для экспортёров",
@@ -42,7 +45,7 @@ export const HISTORY_ITEMS = [
   "Динамика отгрузок за квартал",
   "Уточнение требований к проверке договоров",
   "Отрасли с ростом занятости",
-];
+]);
 
 let messages: ChatMessage[] = [];
 const listeners = new Set<() => void>();
