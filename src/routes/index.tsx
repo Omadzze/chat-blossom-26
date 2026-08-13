@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
+import { NUMBER_MARK } from "@/lib/mock-marker";
 import { AppShell } from "@/components/app/app-shell";
 import { KpiCard } from "@/components/app/kpi-card";
 import { RegionStrip } from "@/components/app/region-strip";
@@ -44,7 +45,7 @@ function MainScreen() {
       showNav
       hideHistory
       title="Главный экран"
-      subtitle="Мининвест · данные от 08.08, 12:21"
+      subtitle={`Мининвест · данные от 08.08, 12:21${NUMBER_MARK}`}
     >
       <main className="flex-1 space-y-5 overflow-y-auto px-4 pb-6">
         <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
