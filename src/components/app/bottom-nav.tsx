@@ -17,7 +17,9 @@ export function BottomNav() {
     <nav className="sticky bottom-0 z-20 border-t border-border bg-background/95 px-1 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5 backdrop-blur">
       <ul className="grid grid-cols-5">
         {TABS.map(({ to, label, icon: Icon, match }) => {
-          const active = match.includes(pathname);
+          const active = match.some(
+            (m) => pathname === m || (m !== "/" && pathname.startsWith(`${m}/`)),
+          );
           return (
             <li key={to}>
               <Link
