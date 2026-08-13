@@ -153,7 +153,7 @@ function ProjectsPage() {
 
         <section>
           <h2 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Внешний фон
+            Внешние экономические условия
           </h2>
           <p className="mb-2.5 text-[12px] text-muted-foreground">{BACKGROUND.note}</p>
           <div className="grid grid-cols-3 gap-2">
