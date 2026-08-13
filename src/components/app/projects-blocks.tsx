@@ -255,7 +255,7 @@ export function ReasonDonut({ items }: { items: Reason[] }) {
                 {s.name}
               </span>
               <span className="shrink-0 font-mono text-[13px] text-muted-foreground">
-                {s.reason ? s.reason.count.replace(" из 169", "") : rest.length} ·{" "}
+                {s.reason ? s.reason.count.replace(" из 169", "") : `${rest.length} причин`} ·{" "}
                 {fmt(s.percent)}%
               </span>
             </button>
