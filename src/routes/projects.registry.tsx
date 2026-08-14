@@ -43,7 +43,7 @@ export const Route = createFileRoute("/projects/registry")({
 });
 
 const SECTIONS = [
-  { id: "post", label: "Предприятия постмониторинга", icon: Factory },
+  { id: "post", label: "Предприятия", icon: Factory },
   { id: "invest", label: "Инвестпроекты", icon: Landmark },
   { id: "pmp", label: "Проекты постмониторинга", icon: ClipboardCheck },
 ];
