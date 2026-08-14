@@ -4,13 +4,7 @@ import { ClipboardCheck, Factory, Landmark } from "lucide-react";
 import { SelectRow } from "@/components/app/projects-blocks";
 import { RegistryList, RegistrySearch } from "@/components/app/registry-list";
 import { InvestList } from "@/components/app/invest-list";
-import {
-  REGISTRY,
-  REGISTRY_INDUSTRIES,
-  REGISTRY_NOTE,
-  REGISTRY_REGIONS,
-  REGISTRY_STATES,
-} from "@/lib/registry-data";
+import { REGISTRY, REGISTRY_NOTE } from "@/lib/registry-data";
 import {
   INVEST,
   INVEST_INDUSTRIES,
