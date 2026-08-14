@@ -53,26 +53,24 @@ function RegistryPage() {
 
   return (
     <main className="flex-1 space-y-3 overflow-y-auto px-4 pb-6">
-      <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="flex gap-1 rounded-full bg-surface-muted p-1">
-          {SECTIONS.map((s) => {
-            const active = section === s.id;
-            const Icon = s.icon;
-            return (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => setSection(s.id)}
-                className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-[13px] font-medium transition-colors ${
-                  active ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"
-                }`}
-              >
-                <Icon className="size-4" />
-                {s.label}
-              </button>
-            );
-          })}
-        </div>
+      <div className="grid grid-cols-3 gap-1 rounded-full bg-surface-muted p-1">
+        {SECTIONS.map((s) => {
+          const active = section === s.id;
+          const Icon = s.icon;
+          return (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setSection(s.id)}
+              className={`flex items-center justify-center gap-1.5 rounded-full px-2 py-2.5 text-[13px] font-medium transition-colors ${
+                active ? "bg-background text-foreground shadow-sm" : "text-muted-foreground"
+              }`}
+            >
+              <Icon className="size-4" />
+              {s.label}
+            </button>
+          );
+        })}
       </div>
 
       {section === "post" && <EnterprisesSection />}
