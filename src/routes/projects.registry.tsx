@@ -1,18 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ClipboardCheck, Factory, Landmark } from "lucide-react";
-import { SelectRow } from "@/components/app/projects-blocks";
 import { RegistryList, RegistrySearch } from "@/components/app/registry-list";
 import { InvestList } from "@/components/app/invest-list";
 import { REGISTRY, REGISTRY_NOTE } from "@/lib/registry-data";
-import {
-  INVEST,
-  INVEST_INDUSTRIES,
-  INVEST_NOTE,
-  INVEST_REGIONS,
-  INVEST_STATES,
-  INVEST_SUMMARY,
-} from "@/lib/invest-data";
+import { INVEST, INVEST_NOTE, INVEST_SUMMARY } from "@/lib/invest-data";
 
 export const Route = createFileRoute("/projects/registry")({
   head: () => ({
