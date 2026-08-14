@@ -1,18 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { ClipboardCheck, Factory, Landmark } from "lucide-react";
-import { SelectRow } from "@/components/app/projects-blocks";
 import { RegistryList, RegistrySearch } from "@/components/app/registry-list";
 import { InvestList } from "@/components/app/invest-list";
 import { REGISTRY, REGISTRY_NOTE } from "@/lib/registry-data";
-import {
-  INVEST,
-  INVEST_INDUSTRIES,
-  INVEST_NOTE,
-  INVEST_REGIONS,
-  INVEST_STATES,
-  INVEST_SUMMARY,
-} from "@/lib/invest-data";
+import { INVEST, INVEST_NOTE, INVEST_SUMMARY } from "@/lib/invest-data";
 
 export const Route = createFileRoute("/projects/registry")({
   head: () => ({
@@ -111,20 +103,11 @@ function EnterprisesSection() {
 }
 
 function InvestSection() {
-  const [state, setState] = useState("all");
-  const [region, setRegion] = useState(INVEST_REGIONS[0]!);
-  const [industry, setIndustry] = useState(INVEST_INDUSTRIES[0]!);
   const [query, setQuery] = useState("");
 
   const items = useMemo(
     () =>
       INVEST.filter((it) => {
-        const share = it.share ? parseFloat(it.share.replace(",", ".")) : null;
-        if (state === "low" && !(share !== null && share < 30)) return false;
-        if (state === "none" && (share === null ? false : share > 0)) return false;
-        if (state === "error" && it.missing === undefined) return false;
-        if (region !== INVEST_REGIONS[0] && it.region !== region) return false;
-        if (industry !== INVEST_INDUSTRIES[0] && it.industry !== industry) return false;
         if (query) {
           const q = query.toLowerCase();
           if (!it.name.toLowerCase().includes(q) && !it.owner.toLowerCase().includes(q))
@@ -132,24 +115,12 @@ function InvestSection() {
         }
         return true;
       }),
-    [state, region, industry, query],
+    [query],
   );
 
   return (
     <>
       <RegistrySearch value={query} onChange={setQuery} />
-
-      <div className="grid grid-cols-2 gap-2">
-        <SelectRow label="Область" value={region} options={INVEST_REGIONS} onChange={setRegion} />
-        <SelectRow
-          label="Отрасль"
-          value={industry}
-          options={INVEST_INDUSTRIES}
-          onChange={setIndustry}
-        />
-      </div>
-
-      <StateChips items={INVEST_STATES} value={state} onChange={setState} />
 
       <section>
         <h2 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
@@ -162,36 +133,5 @@ function InvestSection() {
         <InvestList items={items} />
       </section>
     </>
-  );
-}
-
-function StateChips({
-  items,
-  value,
-  onChange,
-}: {
-  items: { id: string; label: string }[];
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <div className="flex gap-1.5">
-        {items.map((s) => (
-          <button
-            key={s.id}
-            type="button"
-            onClick={() => onChange(s.id)}
-            className={`shrink-0 rounded-full px-3 py-2 text-[13px] font-medium transition-colors ${
-              value === s.id
-                ? "bg-brand text-brand-foreground"
-                : "bg-surface-muted text-muted-foreground"
-            }`}
-          >
-            {s.label}
-          </button>
-        ))}
-      </div>
-    </div>
   );
 }
