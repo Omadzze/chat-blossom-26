@@ -61,11 +61,7 @@ function RegistryPage() {
 
       {section === "post" && <EnterprisesSection />}
       {section === "invest" && <InvestSection />}
-      {section === "pmp" && (
-        <p className="rounded-2xl bg-surface-muted px-3.5 py-6 text-center text-[13px] text-muted-foreground">
-          Проекты постмониторинга подключим следующим шагом
-        </p>
-      )}
+      {section === "pmp" && <PmpSection />}
     </main>
   );
 }
