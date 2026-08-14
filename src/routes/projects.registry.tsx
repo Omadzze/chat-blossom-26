@@ -4,13 +4,7 @@ import { ClipboardCheck, Factory, Landmark } from "lucide-react";
 import { SelectRow } from "@/components/app/projects-blocks";
 import { RegistryList, RegistrySearch } from "@/components/app/registry-list";
 import { InvestList } from "@/components/app/invest-list";
-import {
-  REGISTRY,
-  REGISTRY_INDUSTRIES,
-  REGISTRY_NOTE,
-  REGISTRY_REGIONS,
-  REGISTRY_STATES,
-} from "@/lib/registry-data";
+import { REGISTRY, REGISTRY_NOTE } from "@/lib/registry-data";
 import {
   INVEST,
   INVEST_INDUSTRIES,
@@ -85,44 +79,23 @@ function RegistryPage() {
 }
 
 function EnterprisesSection() {
-  const [state, setState] = useState("idle");
-  const [region, setRegion] = useState(REGISTRY_REGIONS[0]!);
-  const [industry, setIndustry] = useState(REGISTRY_INDUSTRIES[0]!);
   const [query, setQuery] = useState("");
 
   const items = useMemo(
     () =>
       REGISTRY.filter((it) => {
-        const load = parseFloat(it.load) || 0;
-        if (state === "idle" && load > 20) return false;
-        if (state === "stopped" && load > 0) return false;
-        if (state === "problem" && it.tone === "green") return false;
-        if (region !== REGISTRY_REGIONS[0] && it.region !== region) return false;
-        if (industry !== REGISTRY_INDUSTRIES[0] && it.industry !== industry) return false;
         if (query) {
           const q = query.toLowerCase();
           if (!it.name.toLowerCase().includes(q) && !it.stir.includes(q)) return false;
         }
         return true;
       }),
-    [state, region, industry, query],
+    [query],
   );
 
   return (
     <>
       <RegistrySearch value={query} onChange={setQuery} />
-
-      <div className="grid grid-cols-2 gap-2">
-        <SelectRow label="Область" value={region} options={REGISTRY_REGIONS} onChange={setRegion} />
-        <SelectRow
-          label="Отрасль"
-          value={industry}
-          options={REGISTRY_INDUSTRIES}
-          onChange={setIndustry}
-        />
-      </div>
-
-      <StateChips items={REGISTRY_STATES} value={state} onChange={setState} />
 
       <section>
         <h2 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
