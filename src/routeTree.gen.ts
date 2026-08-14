@@ -19,6 +19,7 @@ import { Route as MediaRouteImport } from './routes/media'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as InvestIdRouteImport } from './routes/invest.$id'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsRegistryRouteImport } from './routes/projects.registry'
 import { Route as RegistryIdRouteImport } from './routes/registry.$id'
@@ -76,6 +77,11 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
+const InvestIdRoute = InvestIdRouteImport.update({
+  id: '/invest/$id',
+  path: '/invest/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/invest/$id': typeof InvestIdRoute
   '/projects/registry': typeof ProjectsRegistryRoute
   '/registry/$id': typeof RegistryIdRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/media': typeof MediaRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/invest/$id': typeof InvestIdRoute
   '/projects/registry': typeof ProjectsRegistryRoute
   '/registry/$id': typeof RegistryIdRoute
   '/projects': typeof ProjectsIndexRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRouteWithChildren
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/invest/$id': typeof InvestIdRoute
   '/projects/registry': typeof ProjectsRegistryRoute
   '/registry/$id': typeof RegistryIdRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/invest/$id'
     | '/projects/registry'
     | '/registry/$id'
     | '/projects/'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/media'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/invest/$id'
     | '/projects/registry'
     | '/registry/$id'
     | '/projects'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/invest/$id'
     | '/projects/registry'
     | '/registry/$id'
     | '/projects/'
@@ -207,6 +219,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRouteWithChildren
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  InvestIdRoute: typeof InvestIdRoute
   RegistryIdRoute: typeof RegistryIdRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -283,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invest/$id': {
+      id: '/invest/$id'
+      path: '/invest/$id'
+      fullPath: '/invest/$id'
+      preLoaderRoute: typeof InvestIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/': {
       id: '/projects/'
       path: '/'
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  InvestIdRoute: InvestIdRoute,
   RegistryIdRoute: RegistryIdRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
