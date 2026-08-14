@@ -20,6 +20,7 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as InvestIdRouteImport } from './routes/invest.$id'
+import { Route as PmpIdRouteImport } from './routes/pmp.$id'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsRegistryRouteImport } from './routes/projects.registry'
 import { Route as RegistryIdRouteImport } from './routes/registry.$id'
@@ -82,6 +83,11 @@ const InvestIdRoute = InvestIdRouteImport.update({
   path: '/invest/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PmpIdRoute = PmpIdRouteImport.update({
+  id: '/pmp/$id',
+  path: '/pmp/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/invest/$id': typeof InvestIdRoute
+  '/pmp/$id': typeof PmpIdRoute
   '/projects/registry': typeof ProjectsRegistryRoute
   '/registry/$id': typeof RegistryIdRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/invest/$id': typeof InvestIdRoute
+  '/pmp/$id': typeof PmpIdRoute
   '/projects/registry': typeof ProjectsRegistryRoute
   '/registry/$id': typeof RegistryIdRoute
   '/projects': typeof ProjectsIndexRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/invest/$id': typeof InvestIdRoute
+  '/pmp/$id': typeof PmpIdRoute
   '/projects/registry': typeof ProjectsRegistryRoute
   '/registry/$id': typeof RegistryIdRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/invest/$id'
+    | '/pmp/$id'
     | '/projects/registry'
     | '/registry/$id'
     | '/projects/'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/invest/$id'
+    | '/pmp/$id'
     | '/projects/registry'
     | '/registry/$id'
     | '/projects'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/invest/$id'
+    | '/pmp/$id'
     | '/projects/registry'
     | '/registry/$id'
     | '/projects/'
@@ -220,6 +232,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   InvestIdRoute: typeof InvestIdRoute
+  PmpIdRoute: typeof PmpIdRoute
   RegistryIdRoute: typeof RegistryIdRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -303,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvestIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pmp/$id': {
+      id: '/pmp/$id'
+      path: '/pmp/$id'
+      fullPath: '/pmp/$id'
+      preLoaderRoute: typeof PmpIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/': {
       id: '/projects/'
       path: '/'
@@ -361,6 +381,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   InvestIdRoute: InvestIdRoute,
+  PmpIdRoute: PmpIdRoute,
   RegistryIdRoute: RegistryIdRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }

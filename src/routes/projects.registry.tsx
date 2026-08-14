@@ -5,6 +5,8 @@ import { RegistryList, RegistrySearch } from "@/components/app/registry-list";
 import { InvestList } from "@/components/app/invest-list";
 import { REGISTRY, REGISTRY_NOTE } from "@/lib/registry-data";
 import { INVEST, INVEST_NOTE, INVEST_SUMMARY } from "@/lib/invest-data";
+import { PmpList } from "@/components/app/pmp-list";
+import { PMP, PMP_NOTE, PMP_SUMMARY } from "@/lib/pmp-data";
 
 export const Route = createFileRoute("/projects/registry")({
   head: () => ({
@@ -61,11 +63,7 @@ function RegistryPage() {
 
       {section === "post" && <EnterprisesSection />}
       {section === "invest" && <InvestSection />}
-      {section === "pmp" && (
-        <p className="rounded-2xl bg-surface-muted px-3.5 py-6 text-center text-[13px] text-muted-foreground">
-          Проекты постмониторинга подключим следующим шагом
-        </p>
-      )}
+      {section === "pmp" && <PmpSection />}
     </main>
   );
 }
@@ -131,6 +129,44 @@ function InvestSection() {
         </p>
         <p className="mb-2.5 text-[12px] leading-relaxed text-muted-foreground">{INVEST_SUMMARY}</p>
         <InvestList items={items} />
+      </section>
+    </>
+  );
+}
+
+function PmpSection() {
+  const [query, setQuery] = useState("");
+
+  const items = useMemo(
+    () =>
+      PMP.filter((it) => {
+        if (query) {
+          const q = query.toLowerCase();
+          if (
+            !it.title.toLowerCase().includes(q) &&
+            !it.name.toLowerCase().includes(q) &&
+            !it.stir.includes(q)
+          )
+            return false;
+        }
+        return true;
+      }),
+    [query],
+  );
+
+  return (
+    <>
+      <RegistrySearch value={query} onChange={setQuery} />
+
+      <section>
+        <h2 className="mb-1 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
+          Завершённые проекты
+        </h2>
+        <p className="mb-1 text-[12px] text-muted-foreground">
+          {PMP_NOTE} · найдено {items.length}
+        </p>
+        <p className="mb-2.5 text-[12px] leading-relaxed text-muted-foreground">{PMP_SUMMARY}</p>
+        <PmpList items={items} />
       </section>
     </>
   );
